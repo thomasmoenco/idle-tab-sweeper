@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Leir, HuginOS' dark design system: tokens copied from hugin-command-center src/index.css.
+       Fonts are bundled (SIL OFL, see fonts/) so the extension makes no network requests. -->
+  <style>
+    @font-face { font-family: "Bricolage Grotesque"; font-weight: 700 800; src: url(fonts/bricolage-grotesque.woff2) format("woff2"); }
+    @font-face { font-family: "Hanken Grotesk"; font-weight: 400 600; src: url(fonts/hanken-grotesk.woff2) format("woff2"); }
+    :root {
+      --background: hsl(190 20% 6%);
+      --foreground: hsl(157 17% 94%);
+      --card: hsl(176 23% 13%);
+      --inset: hsl(173 24% 8%);
+      --muted-foreground: hsl(158 5% 52%);
+      --secondary-foreground: hsl(160 9% 73%);
+      --border: hsl(175 15% 16%);
+      --border-strong: hsl(174 13% 22%);
+      --ring: hsl(212 65% 54%);
+      --coral: hsl(14 71% 69%);
+      --destructive: hsl(4 62% 57%);
+      --font-head: "Bricolage Grotesque", "Hanken Grotesk", system-ui, sans-serif;
+      --font-body: "Hanken Grotesk", -apple-system, system-ui, sans-serif;
+      --radius: 0.5rem;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 300px;
+      padding: 18px;
+      background: var(--background);
+      color: var(--foreground);
+      font: 15px/1.6 var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    .eyebrow {
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 2px 0 4px;
+      font: 800 24px/1.15 var(--font-head);
+      letter-spacing: -0.02em;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+    }
+    .row + .row { border-top: 1px solid var(--border); }
+    .row span { font-weight: 500; white-space: nowrap; }
+    .well {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--inset);
+      border: 1px solid var(--border-strong);
+      border-radius: calc(var(--radius) - 2px);
+      color: var(--muted-foreground);
+      font-size: 13px;
+    }
+    .well:focus-within { border-color: var(--ring); box-shadow: 0 0 0 2px hsl(212 65% 54% / 0.35); }
+    input {
+      width: 36px;
+      padding: 0;
+      background: none;
+      border: 0;
+      outline: 0;
+      color: var(--foreground);
+      font: 600 15px var(--font-body);
+      text-align: right;
+      -moz-appearance: textfield;
+    }
+    input::-webkit-inner-spin-button { display: none; }
+    p {
+      margin: 10px 2px 16px;
+      color: var(--muted-foreground);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .lead { margin: 0 0 14px; font-size: 13px; color: var(--secondary-foreground); }
+    button {
+      width: 100%;
+      height: 40px;
+      background: var(--destructive);
+      border: 0;
+      border-radius: var(--radius);
+      color: #fff;
+      font: 600 14px var(--font-body);
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+    button:hover { background: hsl(4 62% 57% / 0.9); }
+    button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="eyebrow">Idle Tab Sweeper</div>
+  <h1>Keep Chrome tidy</h1>
+  <p class="lead">Closes tabs and tab groups you haven't used for a while.</p>
+  <div class="card">
+    <label class="row"><span>Unused tab</span><span class="well"><input id="tabDays" type="number" min="0" step="any"> days</span></label>
+    <label class="row"><span>Unused tab group</span><span class="well"><input id="groupDays" type="number" min="0" step="any"> days</span></label>
+  </div>
+  <p>0 = off. Pinned tabs, tabs playing audio and the tab you're on are never closed automatically. Closed tabs are in your History.</p>
+  <button id="closeGroups">Close all tab groups now</button>
+  <script src="popup.js"></script>
+</body>
+</html>
